@@ -78,19 +78,19 @@ export class BinaryTree<T> implements IBinaryTree<T> {
         }
     }
 
-    private preOrder(node: BinaryTreeNode<T>| null): void {
+    private preOrder(node: BinaryTreeNode<T> | null): void {
         if (node !== null) {
             console.log(`${node.key} `);
             this.preOrder(node.left);
             this.preOrder(node.right);
-        }    
+        }
     }
 
-    private postOrder(node: BinaryTreeNode<T>| null): void {
+    private postOrder(node: BinaryTreeNode<T> | null): void {
         if (node !== null) {
             this.preOrder(node.left);
             this.preOrder(node.right);
             console.log(`${node.key} `);
-        }  
+        }
     }
 }

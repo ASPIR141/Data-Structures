@@ -4,8 +4,8 @@ Data structures:
 - [x] Linked List
 - [ ] Graph
 - [ ] Binary Tree
-- [ ] Sorted Set
+- [-] Sorted Set
 - [ ] Sorted List
 - [ ] Sorted Dictionary
-- [ ] Key Value pair
-- [ ] Hash set
+- [-] Key Value pair
+- [ ] Hash table

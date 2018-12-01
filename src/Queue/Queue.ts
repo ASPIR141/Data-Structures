@@ -37,6 +37,6 @@ export class Queue<T> implements IQueue<T> {
     }
 
     public toArray(): T[] {
-        return this._array;
+        return this._array.slice();
     }
 }
