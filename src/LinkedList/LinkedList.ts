@@ -2,7 +2,7 @@ import { LinkedListNode } from './LinkedListNode';
 import { ILinkedList } from './ILinkedList';
 
 export class LinkedList<T> implements ILinkedList<T> {
-    private _head: LinkedListNode<T> | null;
+    private _head: LinkedListNode<T> | null = null;
     private _count: number = 0;
 
     public count(): number {

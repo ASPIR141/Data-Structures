@@ -3,13 +3,13 @@ import { Traversals } from './Traversals';
 
 interface IBinaryTree<T> {
     find(key: T): BinaryTreeNode<T> | null;
-    add(key: T): boolean;
+    add(node: BinaryTreeNode<T> | null, key: T): BinaryTreeNode<T>;
     remove(key: T): boolean;
     print(node: BinaryTreeNode<T>, order: Traversals): void;
 }
 
 export class BinaryTree<T> implements IBinaryTree<T> {
-    private _root: BinaryTreeNode<T> | null;
+    private _root: BinaryTreeNode<T> | null = null;
 
     public find(key: T): BinaryTreeNode<T> | null {
         let current = this._root;
@@ -27,30 +27,33 @@ export class BinaryTree<T> implements IBinaryTree<T> {
         return null;
     }
 
-    public add(key: T): boolean {
-        const node = new BinaryTreeNode<T>(key);
+    public add(node: BinaryTreeNode<T> | null, key: T): BinaryTreeNode<T> {
+        node = node || new BinaryTreeNode<T>(key);
 
-        if (this._root === null) {
+        if (this._root == null) {
             this._root = node;
-            return true;
+            return this._root;
         }
 
-        const parent = this.find(key);
+        if (key < this._root.key) {
+            if (this._root.left == null) {
+                this._root.left = node;
+                return this._root.left;
+            }
 
-        if (parent) {
-            if (key < parent.key) {
-                parent.left = node;
-                parent.left.parent = parent;
-                return true;
+            this.add(this._root.left, key);
+        }
+        
+        if (key > this._root.key) {
+            if (this._root.right == null) {
+                this._root.right = node;
+                return this._root.right;
             }
-            else {
-                parent.right = node;
-                parent.right.parent = parent;
-                return true;
-            }
+
+            this.add(this._root.right, key);
         }
 
-        return false;
+        return this._root;
     }
 
     public remove(key: T): boolean {

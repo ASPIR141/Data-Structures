@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es5",
+    "module": "commonjs",
+    "target": "es6",
     "lib": [
       "es2017",
       "dom"
@@ -23,10 +23,10 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "paths": {
-      "@data-structures": [
+      "@structures": [
         "./src"
       ],
-      "@data-structures/*": [
+      "@structures/*": [
         "./src/*"
       ]
     }

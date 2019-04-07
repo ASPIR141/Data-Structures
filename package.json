@@ -1,0 +1,23 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "Data structures:\r - [x] Queue\r - [x] Stack\r - [x] Linked List\r - [ ] Graph\r - [ ] Binary Tree\r - [-] Sorted Set\r - [ ] Sorted List\r - [ ] Sorted Dictionary\r - [-] Key Value pair\r - [ ] Hash table",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASPIR141/Data-Structures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ASPIR141/Data-Structures/issues"
+  },
+  "homepage": "https://github.com/ASPIR141/Data-Structures#readme",
+  "devDependencies": {
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.4000"
+  }
+}

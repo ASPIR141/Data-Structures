@@ -14,7 +14,7 @@ export class Queue<T> implements IQueue<T> {
     }
 
     public enqueue(item: T): void {
-        this._array.unshift(item);
+        this._array.push(item);
         this._size++;
     }   
     
@@ -23,7 +23,7 @@ export class Queue<T> implements IQueue<T> {
             throw new Error('Invalid operation: Empty queue');
         }
 
-        const removed = this._array.pop();
+        const removed = this._array.shift();
         this._size--;
         return removed as T;
     }

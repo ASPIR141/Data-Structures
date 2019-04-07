@@ -1,4 +1,4 @@
-export { BinaryTree, Traversals } from '@structures/BinaryTree';
-export { LinkedList } from '@structures/LinkedList';
-export { Stack } from '@structures/Stack';
-export { Queue } from '@structures/Queue';
+export { BinaryTree, Traversals } from './BinaryTree';
+export { LinkedList } from './LinkedList';
+export { Stack } from './Stack';
+export { Queue } from './Queue';
