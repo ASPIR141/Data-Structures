@@ -2,29 +2,30 @@ import { LinkedListNode } from './LinkedListNode';
 import { ILinkedList } from './ILinkedList';
 
 export class LinkedList<T> implements ILinkedList<T> {
-    private _head: LinkedListNode<T> | null = null;
-    private _count: number = 0;
+    public count: number = 0;
 
-    public count(): number {
-        return this._count;
+    private head: LinkedListNode<T> | null;
+
+    public get first(): LinkedListNode<T> | null {
+        return this.head;
     }
 
-    public first(): LinkedListNode<T> | null {
-        return this._head;
+    public get last(): LinkedListNode<T> | null {
+        return this.head === null ? null : this.head.previous;
     }
 
-    public last(): LinkedListNode<T> | null {
-        return this._head === null ? null : this._head.previous;
+    public isEmpty(): boolean {
+        return this.count === 0;
     }
 
     public addFirst(value: T): LinkedListNode<T> {
         const node = new LinkedListNode<T>(value);
 
-        if (this._head === null) {
-            this.insertNodeToEmptyList(node);
+        if (this.isEmpty()) {
+            this.internalInsertNodeToEmptyList(node);
         } else {
-            this.insertNodeBefore(this._head, node);
-            this._head = node;
+            this.internalInsertNodeBefore(this.head, node);
+            this.head = node;
         }
 
         return node;
@@ -33,89 +34,98 @@ export class LinkedList<T> implements ILinkedList<T> {
     public addLast(value: T): LinkedListNode<T> {
         const node = new LinkedListNode<T>(value);
 
-        if (this._head === null) {
-            this.insertNodeToEmptyList(node);
+        if (this.isEmpty()) {
+            this.internalInsertNodeToEmptyList(node);
         } else {
-            this.insertNodeBefore(this._head, node);
+            this.internalInsertNodeBefore(this.head, node);
         }
 
         return node;
     }
 
     public find(value: T): LinkedListNode<T> | null {
-        let node = this._head;
+        let node = this.head;
 
         if (node !== null) {
-            if (value !== null) {
-                do {
-                    if (node.item === value) {
-                        return node;
-                    }
+            do {
+                if (node.item === value) {
+                    return node;
+                }
 
-                    if (node.next) {
-                        node = node.next;
-                    }
-                } while (node !== this._head);
-            } else {
-                do {
-                    if (node.item === null) {
-                        return node;
-                    }
-
-                    if (node.next) {
-                        node = node.next;
-                    }
-                } while (node !== this._head);
-            }
+                node = node.next;
+            } while (node !== this.head);
         }
 
         return null;
     }
 
-    public contains(value: T): boolean {
-        return this.find(value) !== null;
-    }
+    public remove(node: LinkedListNode<T>): boolean;
+    public remove(value: T): boolean;
+    public remove(value: any): boolean {
+        let node: LinkedListNode<T>;
+        if (value instanceof LinkedListNode) {
+            node = value;
+        } else {
+            node = this.find(value);
+        }
 
-    public remove(value: T): boolean {
-        const node = this.find(value);
         if (node !== null) {
-            this.removeNode(node);
+            this.internalRemoveNode(node);
             return true;
         }
+
         return false;
     }
 
-    private insertNodeBefore(node: LinkedListNode<T>, newNode: LinkedListNode<T>): any {
+    public removeFirst() {
+        this.internalRemoveNode(this.head);
+    }
+
+    public removeLast() {
+        this.internalRemoveNode(this.head.previous);
+    }
+
+    public clear() {
+        let current = this.head;
+        while (current !== null) {
+            const temp = current;
+            current = current.next;
+            temp.invalidate();
+        }
+
+        this.head = null;
+        this.count = 0;
+    }
+
+    private internalInsertNodeToEmptyList(node: LinkedListNode<T>) {
+        node.next = node;
+        node.previous = node; // or null
+        this.head = node;
+        this.count++;
+    }
+
+    private internalInsertNodeBefore(node: LinkedListNode<T>, newNode: LinkedListNode<T>) {
         newNode.next = node;
         newNode.previous = node.previous;
+        node.previous.next = newNode;
         node.previous = newNode;
-        if (node.previous) {
-            node.previous.next = newNode;
-        }
-        this._count++;
+        this.count++;
     }
 
-    private insertNodeToEmptyList(node: LinkedListNode<T>): void {
-        this._head = node;
-        node.next = node;
-        node.previous = node;
-        this._count++;
-    }
-
-    private removeNode(node: LinkedListNode<T>): void {
-        if (node.next == node) {
-            this._head = null;
+    private internalRemoveNode(node: LinkedListNode<T>) {
+        if (node.next === node) {
+            // List with only one node.
+            this.head = null;
         } else {
-            if (node.next && node.previous) {
-                node.next.previous = node.previous;
-                node.previous.next = node.next;
-                if (this._head === node) {
-                    this._head = node.next;
-                }
+            node.next.previous = node.previous;
+            node.previous.next = node.next;
+
+            if (this.head === node) {
+                this.head = node.next;
             }
         }
 
         node.invalidate();
-        this._count--;
+        this.count--;
     }
 }

@@ -1,10 +1,13 @@
 {
   "name": "data-structures",
-  "version": "1.0.0",
-  "description": "Data structures:\r - [x] Queue\r - [x] Stack\r - [x] Linked List\r - [ ] Graph\r - [ ] Binary Tree\r - [-] Sorted Set\r - [ ] Sorted List\r - [ ] Sorted Dictionary\r - [-] Key Value pair\r - [ ] Hash table",
-  "main": "index.js",
+  "version": "0.3.0",
+  "description": "Data structures library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "ts-node index.ts"
+    "build": "tsc -p tsconfig.build.json",
+    "build-and-pack": "npm run build && npm pack",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

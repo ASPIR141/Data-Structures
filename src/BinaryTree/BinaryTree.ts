@@ -43,7 +43,7 @@ export class BinaryTree<T> implements IBinaryTree<T> {
 
             this.add(this._root.left, key);
         }
-        
+
         if (key > this._root.key) {
             if (this._root.right == null) {
                 this._root.right = node;
@@ -76,14 +76,12 @@ export class BinaryTree<T> implements IBinaryTree<T> {
     private inOrder(node: BinaryTreeNode<T> | null): void {
         if (node !== null) {
             this.inOrder(node.left);
-            console.log(`${node.key} `);
             this.inOrder(node.right);
         }
     }
 
     private preOrder(node: BinaryTreeNode<T> | null): void {
         if (node !== null) {
-            console.log(`${node.key} `);
             this.preOrder(node.left);
             this.preOrder(node.right);
         }
@@ -93,7 +91,6 @@ export class BinaryTree<T> implements IBinaryTree<T> {
         if (node !== null) {
             this.preOrder(node.left);
             this.preOrder(node.right);
-            console.log(`${node.key} `);
         }
     }
 }
